@@ -37,6 +37,9 @@ setopt PROMPT_SUBST
 PS1='%B%{$fg[cyan]%}[%{$fg[yellow]%}%n%{$fg[magenta]%}::%{$fg[blue]%}%M%B%F{cyan}] [%{$fg[magenta]%}%~%{$reset_color%}%B] %{$vcs_info_msg_0_%}'$'\n''%(?.%F{green}.%F{red})-<->>%b %{$reset_color%}%'
 # Important ls aliases
 alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias grep='grep --color=auto'
+alias dmesg='dmesg --color=auto'
 alias ll='ls -la'
 
 alias p8='ping 8.8.8.8'
