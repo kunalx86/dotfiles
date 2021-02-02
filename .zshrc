@@ -16,20 +16,20 @@ zstyle ':vcs_info:*' enable git
 +vi-git-untracked() {
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
   [[ $(git ls-files --other --no-empty-directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
-  hook_com[unstaged]+='%F{1}?'
-	fi
+    hook_com[unstaged]+='%F{1}?'
+fi
 }
 
 precmd() {
-				vcs_info
+  vcs_info
 }
 
 # Found on Stackoverflow
 git_branch_test_color() {
-	local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
-	if [ -n "${ref}" ]; then
-		echo "%F{071}[%F{070}$ref %F{071}]"
-	fi
+  local ref=$(git symbolic-ref --short HEAD 2> /dev/null)
+  if [ -n "${ref}" ]; then
+    echo "%F{071}[%F{070}$ref %F{071}]"
+  fi
 }
 
 setopt PROMPT_SUBST
@@ -63,15 +63,15 @@ export KEYTIMEOUT=1
 # From LukeSmith's config
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
-    esac
+  case $KEYMAP in
+    vicmd) echo -ne '\e[1 q';;      # block
+    viins|main) echo -ne '\e[5 q';; # beam
+  esac
 }
 zle -N zle-keymap-select
 zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
+  zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+  echo -ne "\e[5 q"
 }
 zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
@@ -83,6 +83,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH=/home/$USER/.local/bin/:$PATH
 # source ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 # Load syntax highlighting; should be last.
+export EDITOR=nvim
 echo "Hello, Kunal 👋"
 # Ensure you have fast-syntax-highlighting installed
 source ~/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
