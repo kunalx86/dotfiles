@@ -39,7 +39,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-remotebranch
   local remote=${$(git rev-parse --verify ${hook_com[branch]}@{upstream} \
         --symbolic-full-name 2>/dev/null)/refs\/remotes\/}
 	if [ -n "${remote}" ]; then
-    hook_com[branch]="${hook_com[branch]}->"
+    hook_com[branch]="${hook_com[branch]}"
   fi
   if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
   [[ $(git ls-files --other --no-empty-directory --exclude-standard | sed q | wc -l | tr -d ' ') == 1 ]] ; then
@@ -50,7 +50,7 @@ fi
 
 setopt PROMPT_SUBST
 
-export PS1='%B%{$fg[cyan]%}[%{$fg[red]%}%n%{$fg[yellow]%}:λ:%{$reset_color%}% %{$fg[blue]%}%B%M%B%F{cyan}] [%{$fg[magenta]%}%~%{$reset_color%}%B] %{$vcs_info_msg_0_%}'$'\n''%(?.%F{green}.%F{red})-<->>%b %{$reset_color%}%'
+export PS1='%B%{$fg[cyan]%}[%{$fg[red]%}%n%{$fg[yellow]%}::%{$reset_color%}% %{$fg[blue]%}%B%M%B%F{cyan}] [%{$fg[magenta]%}%~%{$reset_color%}%B] %{$vcs_info_msg_0_%}'$'\n''%(?.%F{green}.%F{red})λ>%b %{$reset_color%}%'
 # Important ls aliases
 alias ls='ls --color=auto'
 alias dir='dir --color=auto'
@@ -103,13 +103,15 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 export PATH=/home/$USER/.local/bin/:$PATH
-# source ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+ZSH_AUTOSUGGEST_STRATEGY=(completion)
+source ~/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 # Load syntax highlighting; should be last.
 export EDITOR=nvim
-figlet "Hello Kunal" | lolcat -r --24bit
+figlet "Hello Kunal" | lolcat
 # Ensure you have fast-syntax-highlighting installed
 source ~/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-[ -f "/home/kunal/.ghcup/env" ] && source "/home/kunal/.ghcup/env" # ghcup-env
+# [ -f "/home/kunal/.ghcup/env" ] && source "/home/kunal/.ghcup/env" # ghcup-env
